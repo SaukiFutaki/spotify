@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div>
 
-   <main className="flex h-screen w-full overflow-hidden">
+   <main className="flex h-screen w-full ">
 <Sidebar />
     <div>main</div>
    </main>

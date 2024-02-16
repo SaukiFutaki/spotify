@@ -11,6 +11,8 @@ import { FaArrowRight } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { GoDotFill } from "react-icons/go";
+import { IoMdArrowDropright } from "react-icons/io";
+import Image from "next/image";
 
 export default function Sidebar() {
   const { data: session } = useSession();
@@ -36,7 +38,7 @@ export default function Sidebar() {
   console.log(playlists);
 
   return (
-    <div className="w-96 text-neutral-400 grow-0 shrink-0 h-screen overflow-y-scrool border-r p-2 ">
+    <div className="w-96 text-neutral-400 grow-0 shrink-0 h-screen overflow-y-scrool p-2 ">
       <Card className="flex flex-col space-y-4 bg-[#121212] border-black">
         <CardContent>
           <Link href="/">
@@ -80,17 +82,21 @@ export default function Sidebar() {
           <div className="mt-10 space-y-4">
             {playlists?.map((playlist) => (
               <div key={playlist.id}>
-                <div className="flex items-center space-x-2">
-                  <Avatar>
+                <div className="flex items-center space-x-2 hover:bg-gray-300 transition ease-in-out delay-150">
+                  {/* <Avatar>
                     <AvatarImage
                       alt="it’s just a phase"
                       src={playlist.images[0].url}
                     />
-                  </Avatar>
+                  </Avatar> */}
+               
+
+                <Image src={playlist.images[0].url} alt={playlist.name} width={50} height={50} className="rounded-xl"/>
+            
                   <div>
                     <h3 className="text-white">{playlist.name}</h3>
                     <p className="text-[#b3b3b3] text-sm flex flex-row items-center">
-                  {playlist.type}<GoDotFill className="text-sm"/> {playlist.owner.display_name}
+                  {playlist.type}<IoMdArrowDropright /> {playlist.owner.display_name}
                     </p>
                   </div>
                 </div>
