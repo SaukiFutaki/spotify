@@ -16,8 +16,10 @@ export default function Home() {
 
   return (
     <div>
-      <main className="flex h-screen w-full overflow-hidden "></main>
-      <div className="sticky bottom-0 h-24 w-full bg-red-200"></div>
+      <main className="flex h-screen w-full overflow-hidden ">
+
+      </main>
+      <div className="sticky bottom-0  w-full bg-red-200"></div>
     </div>
   );
 }

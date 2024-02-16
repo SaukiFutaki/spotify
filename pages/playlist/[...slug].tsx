@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import { useEffect,useState } from "react"
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import DetailPlaylist from "@/components/components/Playlist";
 
 export default function Shop() {
   const router = useRouter()
@@ -9,11 +10,11 @@ export default function Shop() {
   const { data: session } = useSession();
   console.log(session?.user);
   
-  const [playlists, setPlaylists] = useState<any[]>([]);
+  const [playlists, setPlaylists] = useState<any>(null);
 //
 useEffect(() => {
   async function fetcher() {
-    if (session && session.accessToken && router.query.slug) {
+    if (session && session.accessToken && slug) {
       const response = await fetch(
         `https://api.spotify.com/v1/playlists/${slug}`,
         {
@@ -23,20 +24,17 @@ useEffect(() => {
         }
       );
       const data = await response.json();
-      setPlaylists(data );
+      setPlaylists(data);
     }
   }
   fetcher();
-}, [router.query.slug, session, slug]);
-
-  console.log(slug)
+}, [session,slug]);
   console.log(playlists);
   return (
-    <div>Playlist {router.query.slug}
-    <h1>{playlists.name}</h1>
-    <h1>{playlists.description}</h1>
+    <div className="pt-2">
 
-    {/* <Image src={playlists.images[0].url} width={200} height={200} alt={playlists.id}/> */}
+  <DetailPlaylist name={playlists?.name} image={playlists?.images[0]?.url} type={playlists?.type} owner={playlists?.owner.display_name}  track={playlists?.tracks.items.map((item: any) => item.track.name)}/>
     </div>
+   
   )
 }
