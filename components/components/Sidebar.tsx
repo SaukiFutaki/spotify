@@ -49,12 +49,12 @@ export default function Sidebar() {
           </Link>
         </CardContent>
         <CardContent>
-          <Link href="/login">
-            <div className="flex flex-row items-center gap-8 text-slate-300 pt-4 hover:text-white transition ease-in-out delay-150">
+       
+            <div className={`flex flex-row items-center gap-8 text-slate-300 pt-2 hover:text-white transition ease-in-out delay-150 `}>
               <CiSearch className="h-6 w-6" />
               <h1 className=" font-circular font-semibold ">Cari</h1>
             </div>
-          </Link>
+        
         </CardContent>
       </Card >
       <Card className="bg-[#121212] border-black mt-4">
@@ -79,15 +79,17 @@ export default function Sidebar() {
               <Badge className="text-white bg-[#282828]">Album</Badge>
             </div>
           </div>
-          <div className="mt-10 space-y-4">
+          <div className="mt-10 space-y-4 overflow-y-auto">
             {playlists?.map((playlist) => (
               <div key={playlist.id}>
-                <div className="flex items-center space-x-2 hover:bg-gray-300 transition ease-in-out delay-150">
+                <Link href={`/playlist/${playlist.id}`}>
+
+                <div className="flex items-center space-x-2 hover:bg-[#1A1A1A] transition  rounded-xl cursor-pointer" >
                   {/* <Avatar>
                     <AvatarImage
                       alt="it’s just a phase"
                       src={playlist.images[0].url}
-                    />
+                      />
                   </Avatar> */}
                
 
@@ -100,6 +102,7 @@ export default function Sidebar() {
                     </p>
                   </div>
                 </div>
+            </Link>
               </div>
             ))}
 

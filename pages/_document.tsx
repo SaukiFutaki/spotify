@@ -1,3 +1,4 @@
+import Sidebar from "@/components/components/Sidebar";
 import { Html, Head, Main, NextScript } from "next/document";
 
 
