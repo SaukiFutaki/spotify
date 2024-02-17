@@ -2,6 +2,7 @@ import { SessionProvider } from "next-auth/react"
 import React from "react"
 import "../styles/globals.css"
 import Sidebar from "@/components/components/Sidebar"
+import Header from "@/components/components/Header"
 
 export default function App({
   Component,
@@ -16,7 +17,7 @@ export default function App({
 
       <Sidebar/>
       <div className="flex-1">
-
+ <Header/>
       <Component {...pageProps} />
       </div>
       </div>
