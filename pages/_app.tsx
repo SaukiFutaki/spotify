@@ -16,7 +16,7 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <div className="flex">
-        <NextTopLoader />
+        <NextTopLoader color="#1FDF64" />
         <Sidebar />
         <div className="flex-1">
           <Header />

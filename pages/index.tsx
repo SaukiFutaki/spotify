@@ -1,13 +1,8 @@
-import Image from "next/image";
+
 import { Inter } from "next/font/google";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import Sidebar from "@/components/components/Sidebar";
-import Playlist from "@/components/components/Playlist";
-import Search from "@/components/components/Search";
-import Library from "@/components/components/Library";
-import Artist from "@/components/components/Artist";
-import { signOut, signIn } from "next-auth/react";
+import { Card,CardContent } from "@/components/ui/card";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +12,12 @@ export default function Home() {
   console.log(session?.user);
 
   return (
-    <div>
-      <main className="flex h-screen w-full overflow-hidden ">
-        Welcome, {session?.user?.name}
-      </main>
-      <div className="sticky bottom-0  w-full bg-red-200"></div>
+    <div className="pt-2 flex-grow">
+     <Card className="w-full h-screen border-black bg-[#121212] p-2 rounded-xl bg-red-300">
+      <CardContent>
+       
+      </CardContent>
+     </Card>
     </div>
   );
 }

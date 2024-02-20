@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import { IoMdArrowDropright } from "react-icons/io";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import Login from "./Login";
+import Login from "../../pages/Login";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -76,11 +76,11 @@ export default function Sidebar() {
                 <FaArrowRight className="" />
               </div>
             </div>
-            <div className="mt-4 space-y-1">
+            {/* <div className="mt-4 space-y-1">
               <Badge className="text-white bg-[#282828]">Daftar putar</Badge>
               <Badge className="text-white bg-[#282828]">Artis</Badge>
               <Badge className="text-white bg-[#282828]">Album</Badge>
-            </div>
+            </div> */}
           </div>
           <div className="mt-10 space-y-4 overflow-y-auto ">
             {playlists?.map((playlist) => (

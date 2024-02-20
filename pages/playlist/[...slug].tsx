@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
@@ -21,12 +22,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+import { shuffle } from 'lodash';
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+
 export default function Playlists() {
   const router = useRouter();
   const { slug } = router.query;
   const { data: session } = useSession();
   console.log(session?.user);
-
   const [playlists, setPlaylists] = useState<any>(null);
 
   const colors = [
@@ -37,7 +40,12 @@ export default function Playlists() {
     "from-yellow-500",
     "from-pink-500",
     "from-purple-500",
+    "from-emerald-500",
+    "from-sky-500",
+    "from-rose-500"
   ];
+  const [color, setColor] = useState(colors[0])
+
   //
   useEffect(() => {
     async function fetcher() {
@@ -55,8 +63,13 @@ export default function Playlists() {
       }
     }
     fetcher();
+   
   }, [session, slug]);
-  console.log(playlists);
+  useEffect(() => {
+    setColor(shuffle(colors).pop() as string);
+  }, [slug]);
+
+    console.log(playlists);
 
   const duration = (ms: number) => {
     const minutes = Math.floor(ms / 60000);
@@ -75,35 +88,34 @@ export default function Playlists() {
   };
   return (
     <div className="pt-2 flex-grow h-screen">
-      {/* <header className="text-white sticky top-0 h-20 z-10 text-4xl bg-neutral-800 p-8 flex items-center font-bold">
-        <div className="flex items-center">
-          {playlistData && <img className='h-8 w-8 mr-6' src={playlistData.images[0].url} />}
-                    <p>{playlistData?.name}</p>
-        </div>
-      </header> */}
-
       <Card className="w-full h-screen border-black bg-[#121212] p-2 overflow-y-auto ">
-        <CardContent>
-          <div className="flex flex-row gap-2">
+        <div className={`h-[350px] w-full bg-gradient-to-b ${color}  rounded-xl`}>
+          <div className="flex flex-row gap-4 items-center pt-20 pl-4">
             <Image
               src={playlists?.images[0].url}
               alt={playlists?.name}
               width={200}
               height={200}
+              className="rounded-xl drop-shadow-2xl"
             />
             <div className="flex flex-col">
               <h1 className="">{playlists?.type}</h1>
-              <h1 className="text-3xl font-bold">{playlists?.name}</h1>
-              <h1>{playlists?.owner.display_name}</h1>
+              <h1 className="text-7xl font-bold">{playlists?.name}</h1>
+              <h1> <Avatar>
+      <AvatarImage src={session?.user?.image} alt="avatar" />
+     
+    </Avatar>{playlists?.owner.display_name}</h1>
             </div>
           </div>
+        </div>
+        <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>#</TableHead>
                 <TableHead>Judul</TableHead>
                 <TableHead>Album</TableHead>
-                <TableHead>Tanggal Ditambahkan</TableHead>
+                <TableHead>added at</TableHead>
                 <TableHead>
                   <TooltipProvider>
                     <Tooltip>
@@ -134,20 +146,39 @@ export default function Playlists() {
                         />
                         <div className="flex flex-col gap-2 justify-center">
                           <Link href={`/track/${item.track.id}`}>
-                          <p className="text-sm font-medium leading-none hover:underline">
-                            {item.track.name}
-                          </p>
+                            <p className="text-sm font-medium leading-none hover:underline line-clamp-1">
+                              {item.track.name}
+                            </p>
                           </Link>
-                         
-                          <p className="text-sm  leading-none hover:underline">
-                            <Link href={`/artist/${item?.track.artists[0].id}`}>
-                              {item?.track.album.artists[0].name}
-                            </Link>
+
+                          <p className="text-sm leading-none ">
+                            {item?.track.artists.map(
+                              (artist: any, index: number) => (
+                                <span key={artist.id}>
+                                  <Link
+                                    href={`/artist/${artist.id}`}
+                                    className="hover:underline"
+                                  >
+                                    {artist.name}
+                                  </Link>
+                                  {index < item.track.artists.length - 1 &&
+                                    ", "}
+                                </span>
+                              )
+                            )}
                           </p>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell>{item.track.album.name}</TableCell>
+                    <TableCell>
+                      {" "}
+                      <Link
+                        className="hover:underline line-clamp-1"
+                        href={`/album/${item.track.album.id}`}
+                      >
+                        {item.track.album.name}
+                      </Link>
+                    </TableCell>
                     <TableCell>{date(item.added_at)}</TableCell>
                     <TableCell>{duration(item.track.duration_ms)}</TableCell>
                   </TableRow>

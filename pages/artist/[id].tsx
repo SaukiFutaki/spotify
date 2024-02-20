@@ -1,3 +1,4 @@
+import { Card, CardContent } from "@/components/ui/card";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -45,10 +46,12 @@ if (!artistData || !topTracks || !relatedArtists) {
   console.log(relatedArtists);
 
   return (
-    <div>
-      <div className="">
-       {artistData.name}
-      </div>
+    <div className="pt-2 flex-grow h-screen">
+     <Card className="w-full h-screen border-black bg-[#121212] p-2 rounded-xl">
+      <CardContent>
+        {artistData.name}
+      </CardContent>
+     </Card>
     </div>
   );
 }
