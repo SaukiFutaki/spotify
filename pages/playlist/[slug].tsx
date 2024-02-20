@@ -22,8 +22,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { shuffle } from 'lodash';
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { shuffle } from "lodash";
+
 
 export default function Playlists() {
   const router = useRouter();
@@ -31,6 +31,7 @@ export default function Playlists() {
   const { data: session } = useSession();
   console.log(session?.user);
   const [playlists, setPlaylists] = useState<any>(null);
+  const [totalDuration, setTotalDuration] = useState<number>(0);
 
   const colors = [
     "from-indigo-500",
@@ -42,9 +43,9 @@ export default function Playlists() {
     "from-purple-500",
     "from-emerald-500",
     "from-sky-500",
-    "from-rose-500"
+    "from-rose-500",
   ];
-  const [color, setColor] = useState(colors[0])
+  const [color, setColor] = useState(colors[0]);
 
   //
   useEffect(() => {
@@ -60,21 +61,31 @@ export default function Playlists() {
         );
         const data = await response.json();
         setPlaylists(data);
+        let total = 0;
+        data.tracks.items.forEach((item: any) => {
+          total += item.track.duration_ms;
+        });
+        setTotalDuration(total);
+        const duration = (ms: number) => {
+          const hours = Math.floor(ms / (1000 * 60 * 60));
+          const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+          return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        };
       }
     }
     fetcher();
-   
   }, [session, slug]);
   useEffect(() => {
     setColor(shuffle(colors).pop() as string);
   }, [slug]);
 
-    console.log(playlists);
+  console.log(playlists);
 
   const duration = (ms: number) => {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (parseInt(seconds) < 10 ? "0" : "") + seconds;
+    return minutes + "menit" + (parseInt(seconds) < 10 ? "0" : "") + seconds;
   };
 
   const date = (dateString: string) => {
@@ -86,10 +97,16 @@ export default function Playlists() {
     };
     return d.toLocaleDateString("id-ID", options);
   };
+  const likes = (count: number) => {
+    return count ? count.toLocaleString("id-ID") : "";
+  };
+
   return (
     <div className="pt-2 flex-grow h-screen">
       <Card className="w-full h-screen border-black bg-[#121212] p-2 overflow-y-auto ">
-        <div className={`h-[350px] w-full bg-gradient-to-b ${color}  rounded-xl`}>
+        <div
+          className={`h-[350px] w-full bg-gradient-to-b ${color}  rounded-xl`}
+        >
           <div className="flex flex-row gap-4 items-center pt-20 pl-4">
             <Image
               src={playlists?.images[0].url}
@@ -98,13 +115,25 @@ export default function Playlists() {
               height={200}
               className="rounded-xl drop-shadow-2xl"
             />
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
               <h1 className="">{playlists?.type}</h1>
               <h1 className="text-7xl font-bold">{playlists?.name}</h1>
-              <h1> <Avatar>
-      <AvatarImage src={session?.user?.image} alt="avatar" />
-     
-    </Avatar>{playlists?.owner.display_name}</h1>
+              <h1 className="text-sm font-semibold text-gray-100 italic">
+                {playlists?.description}
+              </h1>
+              <h1 className="font-bold">
+                {" "}
+                <Link href={`/user/${playlists?.owner.id}`} className="hover:underline" >
+                {playlists?.owner.display_name}
+                </Link>
+                <span className="text-sm font-normal">
+                  {" "}
+                  {likes(playlists?.followers.total)} suka
+                </span>
+                <span>
+                  {playlists?.tracks.total} lagu sekitar {duration(totalDuration)}
+                </span>
+              </h1>
             </div>
           </div>
         </div>
