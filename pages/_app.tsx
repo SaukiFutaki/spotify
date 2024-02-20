@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import Sidebar from "@/components/components/Sidebar";
 import Header from "@/components/components/Header";
 import NextTopLoader from 'nextjs-toploader';
+import Footer from "@/components/components/Footer";
 
 export default function App({
   Component,
@@ -22,6 +23,7 @@ export default function App({
           <Component {...pageProps} />
         </div>
       </div>
+        <Footer/>
     </SessionProvider>
   );
 }

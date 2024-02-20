@@ -14,6 +14,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Playlists() {
   const router = useRouter();
@@ -60,8 +66,12 @@ export default function Playlists() {
 
   const date = (dateString: string) => {
     const d = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
-    return d.toLocaleDateString('id-ID', options);
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    };
+    return d.toLocaleDateString("id-ID", options);
   };
   return (
     <div className="pt-2 flex-grow h-screen">
@@ -95,7 +105,16 @@ export default function Playlists() {
                 <TableHead>Album</TableHead>
                 <TableHead>Tanggal Ditambahkan</TableHead>
                 <TableHead>
-                  <LuClock3 />
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <LuClock3 />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Durasi</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -114,7 +133,12 @@ export default function Playlists() {
                           height={50}
                         />
                         <div className="flex flex-col gap-2 justify-center">
-                          <p className="text-sm font-medium leading-none">{item.track.name}</p>
+                          <Link href={`/track/${item.track.id}`}>
+                          <p className="text-sm font-medium leading-none hover:underline">
+                            {item.track.name}
+                          </p>
+                          </Link>
+                         
                           <p className="text-sm  leading-none hover:underline">
                             <Link href={`/artist/${item?.track.artists[0].id}`}>
                               {item?.track.album.artists[0].name}
