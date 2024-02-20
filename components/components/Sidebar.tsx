@@ -13,7 +13,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Login from "./Login";
 
-
 export default function Sidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
@@ -23,7 +22,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     async function fetcher() {
-      if (session && session.user) {
+      if (session && "accessToken" in session ) {
         const response = await fetch(
           "https://api.spotify.com/v1/me/playlists",
           {
@@ -44,9 +43,6 @@ export default function Sidebar() {
     <div className="w-96 text-neutral-400 grow-0 shrink-0 h-screen overflow-y-auto p-2 ">
       <Card className="flex flex-col space-y-4 bg-[#121212] border-black">
         <CardContent>
-          <Login/>
-        </CardContent>
-        <CardContent>
           <Link href="/">
             <div className="flex flex-row items-center gap-8 text-slate-300 pt-6  hover:text-white transition ease-in-out delay-150">
               <GoHome className=" h-6 w-6" />
@@ -57,7 +53,9 @@ export default function Sidebar() {
         <CardContent>
           <Link href="/search">
             <div
-              className={` ${pathname === "/search" ? "bg-[#393939]" : "null"} flex flex-row items-center gap-8 text-slate-300 pt-2 hover:text-white transition ease-in-out delay-150 `}
+              className={` ${
+                pathname === "/search" ? "bg-[#393939]" : "null"
+              } flex flex-row items-center gap-8 text-slate-300 pt-2 hover:text-white transition ease-in-out delay-150 `}
             >
               <CiSearch className="h-6 w-6" />
               <h1 className=" font-circular font-semibold ">Cari</h1>
@@ -88,7 +86,13 @@ export default function Sidebar() {
             {playlists?.map((playlist) => (
               <div key={playlist.id} className="">
                 <Link href={`/playlist/${playlist.id}`}>
-                  <div className={`${pathname === `/playlist/${playlist.id}` ? "bg-[#2A2A2A]" :null}   " flex items-center space-x-2 hover:bg-[#1A1A1A] transition  rounded-xl cursor-pointer"`}>
+                  <div
+                    className={`${
+                      pathname === `/playlist/${playlist.id}`
+                        ? "bg-[#2A2A2A]"
+                        : null
+                    }   " flex items-center space-x-2 hover:bg-[#1A1A1A] transition  rounded-xl cursor-pointer"`}
+                  >
                     {/* <Avatar>
                     <AvatarImage
                       alt="it’s just a phase"
