@@ -41,6 +41,12 @@ if (!artistData || !topTracks || !relatedArtists) {
   if (artistError || topTracksError || relatedArtistsError) {
     return <div>Error</div>;
   }
+  
+  const duration = (ms: number) => {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = ((ms % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (parseInt(seconds) < 10 ? "0" : "") + seconds;
+  };
   console.log(artistData);
   console.log(topTracks);
   console.log(relatedArtists);
@@ -50,8 +56,23 @@ if (!artistData || !topTracks || !relatedArtists) {
      <Card className="w-full h-screen border-black bg-[#121212] p-2 rounded-xl">
       <CardContent>
         {artistData.name}
+        {artistData.genres.map((genre : any)=> genre)}
+        <Image src={artistData?.images[0].url} alt={artistData.name} width={200} height={200}/>
+
       </CardContent>
+     <div className="flex flex-col">
+      {topTracks.tracks.map((track: any) => (
+        <div key={track.id} className="flex flex-row">
+          <p>{track.name}</p>
+          <p>{track.album.name}</p>
+          <p>{duration(track.duration_ms)}</p>
+         
+        </div>
+      ))}
+      
+     </div>
      </Card>
+
     </div>
   );
 }

@@ -103,7 +103,7 @@ export default function Playlists() {
 
   return (
     <div className="pt-2 flex-grow h-screen">
-      <Card className="w-full h-screen border-black bg-[#121212] p-2 overflow-y-auto ">
+      <Card className="w-full h-screen border-black bg-[#121212] p-2 overflow-y-auto scrollbar-hide">
         <div
           className={`h-[350px] w-full bg-gradient-to-b ${color}  rounded-xl`}
         >

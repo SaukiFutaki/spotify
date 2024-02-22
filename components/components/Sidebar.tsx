@@ -40,7 +40,7 @@ export default function Sidebar() {
   console.log(playlists);
 
   return (
-    <div className="w-96 text-neutral-400 grow-0 shrink-0 h-screen overflow-y-auto p-2 ">
+    <div className="w-96 text-neutral-400 grow-0 shrink-0 h-screen overflow-y-auto p-2 scrollbar-hide">
       <Card className="flex flex-col space-y-4 bg-[#121212] border-black">
         <CardContent>
           <Link href="/">

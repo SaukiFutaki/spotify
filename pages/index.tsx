@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <div className="pt-2 flex-grow">
-     <Card className="w-full h-screen border-black bg-[#121212] p-2 rounded-xl bg-red-300">
+     <Card className="w-full h-screen border-black bg-[#121212] p-2 rounded-xl ">
       <CardContent>
        
       </CardContent>
