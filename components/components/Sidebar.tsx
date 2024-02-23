@@ -1,7 +1,6 @@
 import { GoHome } from "react-icons/go";
 import { LuLibrary } from "react-icons/lu";
 import { FaPlus } from "react-icons/fa6";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { CiSearch } from "react-icons/ci";
 import Link from "next/link";

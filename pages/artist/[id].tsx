@@ -3,17 +3,23 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { Session } from "next-auth";
+
+
+interface CustomSession extends Session {
+  accessToken?: string; 
+}
 
 export default function Artists() {
   const router = useRouter();
   const { id } = router.query;
-  const { data: session } = useSession();
+  const { data: session } = useSession() as { data: CustomSession | null};
   console.log(session?.user);
 
   const fetcher = (url: string) =>
     fetch(url, {
       headers: {
-        Authorization: `Bearer ${session?.accessToken || ""}`,
+        Authorization: `Bearer ${session!.accessToken}`,
       },
     }).then((res) => res.json());
 

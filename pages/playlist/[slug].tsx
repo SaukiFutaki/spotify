@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import {  useSession } from "next-auth/react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { LuClock3 } from "react-icons/lu";

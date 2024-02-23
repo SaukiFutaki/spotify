@@ -2,9 +2,7 @@ import { SessionProvider } from "next-auth/react";
 import React from "react";
 import "../styles/globals.css";
 import Sidebar from "@/components/components/Sidebar";
-import Header from "@/components/components/Header";
 import NextTopLoader from "nextjs-toploader";
-import Footer from "@/components/components/Footer";
 import { usePathname } from "next/navigation";
 
 export default function App({

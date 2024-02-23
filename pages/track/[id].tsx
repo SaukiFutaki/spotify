@@ -4,11 +4,16 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useState } from "react";
+import { Session } from "next-auth";
+
+interface CustomSession extends Session {
+  accessToken?: string; 
+}
 
 export default function Artists() {
   const router = useRouter();
   const { id } = router.query;
-  const { data: session } = useSession();
+  const { data: session } = useSession() as { data: CustomSession | null};
   const [headerColor, setHeaderColor] = useState(getRandomColor());
   console.log(session?.user);
 
