@@ -13,7 +13,7 @@ const Header = () => {
   const { data: session } = useSession();
 
   return (
-    <div>
+    <div className="">
       {session ? (
         <div
           onClick={() => signOut({ callbackUrl: "/" })}

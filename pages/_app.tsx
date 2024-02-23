@@ -17,22 +17,14 @@ export default function App({
   const pathname = usePathname();
   return (
     <SessionProvider session={session}>
-      <div className="flex">
+      <div className="flex overflow-hidden">
         <NextTopLoader color="#1FDF64" />
-        <div className={`${pathname === "/login" ? "hidden" : "block"}`}>
+        <div className={`${pathname === "/login" ? "hidden" : "block"} overflow-hidden`}>
           <Sidebar />
         </div>
         <div className="flex-1 scrollbar-hide">
-          <div className={`${pathname === "/login" ? "hidden" : "block"}`}>
-
-          <Header />
-          </div>
           <Component {...pageProps} />
         </div>
-      </div>
-      <div className={`${pathname === "/login" ? "hidden" : "block"}`}>
-
-      <Footer />
       </div>
     </SessionProvider>
   );

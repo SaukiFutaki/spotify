@@ -21,9 +21,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
+import { BsDot } from "react-icons/bs";
 import { shuffle } from "lodash";
-
+import Header from "@/components/components/Header";
 
 export default function Playlists() {
   const router = useRouter();
@@ -70,7 +70,9 @@ export default function Playlists() {
           const hours = Math.floor(ms / (1000 * 60 * 60));
           const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((ms % (1000 * 60)) / 1000);
-          return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+          return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds
+            .toString()
+            .padStart(2, "0")}`;
         };
       }
     }
@@ -85,7 +87,7 @@ export default function Playlists() {
   const duration = (ms: number) => {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return minutes + "menit" + (parseInt(seconds) < 10 ? "0" : "") + seconds;
+    return minutes + ":" + (parseInt(seconds) < 10 ? "0" : "") + seconds;
   };
 
   const date = (dateString: string) => {
@@ -103,6 +105,9 @@ export default function Playlists() {
 
   return (
     <div className="pt-2 flex-grow h-screen">
+      <div className="sticky top-0">
+        <Header />
+      </div>
       <Card className="w-full h-screen border-black bg-[#121212] p-2 overflow-y-auto scrollbar-hide">
         <div
           className={`h-[350px] w-full bg-gradient-to-b ${color}  rounded-xl`}
@@ -117,23 +122,35 @@ export default function Playlists() {
             />
             <div className="flex flex-col gap-2">
               <h1 className="">{playlists?.type}</h1>
-              <h1 className="text-7xl font-bold">{playlists?.name}</h1>
+              <h1 className="text-7xl font-bold sticky top-0 ">
+                {playlists?.name}
+              </h1>
               <h1 className="text-sm font-semibold text-gray-100 italic">
                 {playlists?.description}
               </h1>
-              <h1 className="font-bold">
-                {" "}
-                <Link href={`/user/${playlists?.owner.id}`} className="hover:underline" >
-                {playlists?.owner.display_name}
-                </Link>
-                <span className="text-sm font-normal">
+              <div className="">
+                <h1 className="font-bold flex flex-row items-center">
                   {" "}
-                  {likes(playlists?.followers.total)} suka
-                </span>
-                <span>
-                  {playlists?.tracks.total} lagu sekitar {duration(totalDuration)}
-                </span>
-              </h1>
+                  <Link
+                    href={`/user/${playlists?.owner.id}`}
+                    className="hover:underline"
+                    >
+                    {playlists?.owner.display_name} 
+                  </Link>
+                  <span><BsDot/></span>
+                  <span className="text-sm font-normal">
+                    {" "}
+                    {likes(playlists?.followers.total)} suka
+                  </span>
+                  <span>
+                    <BsDot />
+                  </span>
+                  <span className="text-sm font-normal">
+                    {playlists?.tracks.total} lagu
+                    {/* {duration(totalDuration)} */}
+                  </span>
+                </h1>
+              </div>
             </div>
           </div>
         </div>

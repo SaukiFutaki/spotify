@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import { IoMdArrowDropright } from "react-icons/io";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import Login from "../../pages/Login";
+
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -40,7 +40,7 @@ export default function Sidebar() {
   console.log(playlists);
 
   return (
-    <div className="w-96 text-neutral-400 grow-0 shrink-0 h-screen overflow-y-auto p-2 scrollbar-hide">
+    <div className="w-96 text-neutral-400 flex-grow h-screen overflow-y-auto p-2 scrollbar-hide">
       <Card className="flex flex-col space-y-4 bg-[#121212] border-black">
         <CardContent>
           <Link href="/">

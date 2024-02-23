@@ -54,10 +54,10 @@ if (!artistData || !topTracks || !relatedArtists) {
   return (
     <div className="pt-2 flex-grow h-screen">
      <Card className="w-full h-screen border-black bg-[#121212] p-2 rounded-xl">
+        <Image src={artistData?.images[0].url} alt={artistData.name} width={500} height={500} className=" aspect-video rounded-xl"/>
       <CardContent>
         {artistData.name}
         {artistData.genres.map((genre : any)=> genre)}
-        <Image src={artistData?.images[0].url} alt={artistData.name} width={200} height={200}/>
 
       </CardContent>
      <div className="flex flex-col">
