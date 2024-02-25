@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 
 import { Session } from "next-auth";
+import Image from "next/image";
 
 interface CustomSession extends Session {
   accessToken?: string; 
@@ -44,6 +45,7 @@ export default function User() {
   return (
     <div className="pt-2">
      {user.display_name}
+    <Image src={user?.images[1]?.url} alt={user?.id} width={400} height={400}/>
     </div>
   );
 }

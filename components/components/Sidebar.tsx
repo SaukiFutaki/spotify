@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 import { IoMdArrowDropright } from "react-icons/io";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-
+import { GoDotFill } from "react-icons/go";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -53,7 +53,7 @@ export default function Sidebar() {
           <Link href="/search">
             <div
               className={` ${
-                pathname === "/search" ? "bg-[#393939]" : "null"
+                pathname === "/search" ? `${<GoDotFill/>} bg-redd-200` : null
               } flex flex-row items-center gap-8 text-slate-300 pt-2 hover:text-white transition ease-in-out delay-150 `}
             >
               <CiSearch className="h-6 w-6" />
@@ -100,8 +100,8 @@ export default function Sidebar() {
                   </Avatar> */}
 
                     <Image
-                      src={playlist.images[0].url}
-                      alt={playlist.name}
+                      src={playlist?.images[0]?.url}
+                      alt={playlist?.name}
                       width={50}
                       height={50}
                       className="rounded-xl"
